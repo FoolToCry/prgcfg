@@ -1,7 +1,7 @@
 # prgcfg
 C stuff for evaluation of command line and config files with some example programs.
 
-## directorry LIB 
+## directory LIB 
 Files for library which is used by example programs to evalute options from command line and config file during program invocation.  
 To generate lib:
 ```
