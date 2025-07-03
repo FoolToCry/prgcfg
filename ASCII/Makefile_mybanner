@@ -1,0 +1,15 @@
+OBJ_DIR = .
+LIB_DIR = ../LIB
+EXE	= mybanner
+OBJECTS = ${OBJ_DIR}/${EXE}.o
+LINKLIB = -L $(LIB_DIR) -lc_prgcfg -lm
+
+target: $(OBJECTS);
+	gcc -g -Wall \
+	-o $(EXE) \
+	$(OBJECTS) \
+	$(LINKLIB)
+
+
+$(OBJ_DIR)/${EXE}.o :  mybanner.c;
+	gcc -c mybanner.c -Wall -o $(OBJ_DIR)/${EXE}.o
