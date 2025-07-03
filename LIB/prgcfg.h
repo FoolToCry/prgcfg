@@ -105,7 +105,7 @@ extern char PrgCfgPrgCall[PrgCfgOptMaxNameLength];
 // comment sign when reading configuration from files, default: "//"
 extern char PrgCfgCommentSign[5];
 
-// seperation sign between option amd value when reading configuration from file
+// separator sign between option amd value when reading configuration from file
 // default: '='
 extern char PrgCfgSeparatorSign;
 
