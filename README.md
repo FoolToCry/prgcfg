@@ -1,24 +1,26 @@
 # prgcfg
-C stuff for evaluation of command line and config files with some example programs
+C stuff for evaluation of command line and config files with some example programs.
 
 ## directorry LIB 
-library used by example programs to evalute options from command line and config file during program invocation
-to generate lib:
+Files for library which is used by example programs to evalute options from command line and config file during program invocation.  
+To generate lib:
+```
 cd LIB 
 make 
+```
 
 ## directory ASCII
-Two example programs which are using the above Library. The ascii movie program (src: ascii_mov.c) uses 
-command line options and a configuration file. 
-
-to generate amov executable
+Two example programs which are using the above Library. The ascii movie program (src: ascii_mov.c) uses command line options and a configuration file. 
+To generate amov executable:
+```
 cd ASCII
 make 
-
-example call 
+```
+example call:
+```
 amov -h
 amov -f submarine.txt
-
-...
-more description to follow 
+```
+...  
+more description to follow  
 ...
