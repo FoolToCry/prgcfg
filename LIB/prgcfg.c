@@ -772,7 +772,7 @@ int prgcfgetarryindex( char *s, int *arind)
     if( close == 0)
       break;
 
-    sprintf( tmps2,  substr( tmps, open, close - open -1 ));
+    sprintf( tmps2, "%s", substr( tmps, open, close - open -1 ));
     if( debug) printf("\n tmps2 = %s", tmps2);
     arind[i] = atoi(tmps2);
     ++index;
@@ -851,7 +851,8 @@ int prgcfg_read_cmdline( int argc, char*argv[], PrgCfgOpt *cfgval, int ovwrfile)
       k = i-1;
       while( ol[k] < onl) {
 	ind[k+1] = ind[k];
-        ol[k+1]  = ol[k--];
+        ol[k+1]  = ol[k];
+        --k;
         if(k<0) break;
       }
       ol[k+1] = onl;
@@ -1087,7 +1088,8 @@ int prgcfg_read_file( char *PrgCfgFileName, PrgCfgOpt *cfgval)
 	k = i-1;
 	while( ol[k] < onl) {
 	  ind[k+1] = ind[k];
-	  ol[k+1]  = ol[k--];
+	  ol[k+1]  = ol[k];
+          --k;
 	  if(k<0) break;
 	}
 	ol[k+1] = onl;
@@ -1267,9 +1269,10 @@ int prgcfgvstat( PrgCfgOpt *cfgval, void *var)
 
     if( debug) {
       printf(" %s%s", PrgCfgOptSwChar, cfgval[i].name);
-      for( k=strlen( cfgval[i].name); k<length; k++)
+      for( k=strlen( cfgval[i].name); k<length; k++) {
 	printf(" ");
         printf(" : addr: %ld, %s\n",  (long)cfgval[i].value, cfgval[i].help);
+      }
     }
   }
   if( debug)  printf("\n");
@@ -1292,8 +1295,8 @@ void prglogmsg( bool verbose, FILE *prglgfp, const char *logmsg, ...)
   vsprintf( logstring, logmsg, ap);
   va_end( ap);
   if( verbose)
-    fprintf( stderr, logstring);
-  fprintf( prglgfp, logstring);
+    fprintf( stderr, "%s", logstring);
+  fprintf( prglgfp, "%s", logstring);
 
 }// prglogmsg() ----------------------------------------------------------------
 
@@ -1317,14 +1320,14 @@ void prglogheader( bool verbose, FILE *prglgfp, const char *logmsg, ...)
     fprintf( stderr, "\n------------------------------------------------------------------------------");
     fprintf( stderr, "\n Date    : %s", asctime( ptr));
     fprintf( stderr, " Command : %s", PrgCfgPrgCall);
-    fprintf( stderr, logstring);
+    fprintf( stderr, "%s", logstring);
     fprintf( stderr, "\n------------------------------------------------------------------------------\n");
   }
 
   fprintf( prglgfp, "\n%s------------------------------------------------------------------------------", (PrgCfgLogHdCommentOn==1)? PrgCfgCommentSign : "");
   fprintf( prglgfp, "\n%s Date    : %s", (PrgCfgLogHdCommentOn==1)? PrgCfgCommentSign : "", asctime( ptr));
   fprintf( prglgfp, "%s Command : %s", (PrgCfgLogHdCommentOn==1)? PrgCfgCommentSign : "", PrgCfgPrgCall);
-  fprintf( prglgfp, logstring);
+  fprintf( prglgfp, "%s", logstring);
   //prgcfgprint( cfgval); // does not work anymore :-(((
   fprintf( prglgfp, "\n%s------------------------------------------------------------------------------\n", (PrgCfgLogHdCommentOn==1)? PrgCfgCommentSign : "");
 

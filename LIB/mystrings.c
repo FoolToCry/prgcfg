@@ -693,7 +693,7 @@ char *readcommand( char *history[], char *buffer[], int hsize, int *indexmax, ch
 
     for( k=hsize-1; k>1; k--)
       sprintf( history[k], "%s", history[k-1]);
-    sprintf( history[1], buffer[index]);      // store current input string
+    sprintf( history[1], "%s", buffer[index]);      // store current input string
     sprintf( history[0], "");
 
     for( k=hsize-1; k>=0; k--)
