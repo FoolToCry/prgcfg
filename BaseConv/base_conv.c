@@ -422,10 +422,10 @@ int send_values_to_control( char* command) {
     // remove current command from input string
     strcpy( tmp, command);
     while( tmp[0] == ' ') { // remove leading spaces
-      sprintf( command, substr( tmp, 1, 0));
+      sprintf( command, "%s", substr( tmp, 1, 0));
       strcpy( tmp, command);
     }
-    sprintf( tmp, substr( command, input_val_length, 0));
+    sprintf( tmp, "%s", substr( command, input_val_length, 0));
     strcpy( command, tmp);
   }
   return( exit_prog);
@@ -551,7 +551,7 @@ void init_fp( char* fixp_format)
     int count = 0;
     int debug = 0;
 
-    sprintf( format, fixp_format);
+    sprintf( format, "%s", fixp_format);
     dbg_print( debug, __func__, __LINE__, "0: input_val =\"%s\"\n", format);
 
     // count : in format
@@ -576,7 +576,7 @@ void init_fp( char* fixp_format)
         fp_s = 1;
 
       // remove <signed/unsigend>: from format string
-      sprintf( tmps, substr( format, match( format, ":"), 0));
+      sprintf( tmps, "%s", substr( format, match( format, ":"), 0));
       strcpy ( format, tmps);
     }
     else {
@@ -589,11 +589,11 @@ void init_fp( char* fixp_format)
     dbg_print( debug, __func__, __LINE__, "3: input_val =\"%s\"\n", format);
 
     // get first remaining parameter from format string
-    sprintf( m, substr( format, 0, match( format, ":")-1));
+    sprintf( m, "%s", substr( format, 0, match( format, ":")-1));
     fpn_w = atoi( substr( format, 0, match( format, ":") -1));
 
     // remove remaing first parameter from format string
-    sprintf( tmps, substr( format, match( format, ":"), 0));
+    sprintf( tmps, "%s", substr( format, match( format, ":"), 0));
     strcpy ( format, tmps);
 
     dbg_print( debug, __func__, __LINE__, "4: i=\"%s\"", m);
@@ -681,7 +681,7 @@ char *ins_thousand_sep( long long n, int start) {
     return( res);
   }
   dbg_print( debug, __func__, __LINE__, "last1   n: %22lld, tmps: \"%s\", res: \"%s\"\n", n, tmps, res);
-  sprintf( tmps, ins_thousand_sep( n/1000, 0));
+  sprintf( tmps, "%s", ins_thousand_sep( n/1000, 0));
   dbg_print( debug, __func__, __LINE__, "last2   n: %22lld, tmps: \"%s\", res: \"%s\"\n", n, tmps, res);
   sprintf( res, "%s%c%03lld", tmps, separator_sign, n%1000);
   dbg_print( debug, __func__, __LINE__, "last4   n: %22lld, tmps: \"%s\", res: \"%s\"\n", n, tmps, res);
@@ -704,7 +704,7 @@ char *ins_thousand_sep_unsigned( unsigned long long n, int start) {
     strcat( res, tmps);
     return( res);
   }
-  sprintf( tmps, ins_thousand_sep_unsigned( n/1000, 0));
+  sprintf( tmps, "%s", ins_thousand_sep_unsigned( n/1000, 0));
   sprintf( res, "%s%c%03lld", tmps, separator_sign, n%1000);
   return( res);
 }
@@ -1134,7 +1134,7 @@ void prep_conv_real_to_fixpoint( char* real_val) {
   sprintf( input_val_frac, "%s", input_val);
   frac_value = atoll( input_val);
   fp_frac_ovflw = fp_range_ovflw;
-  dbg_print( debug, __func__, __LINE__, "converted fractional part: %lld, overlofw: %d", frac_value, fp_frac_ovflw);
+  dbg_print( debug, __func__, __LINE__, "converted fractional part: %lld, overlofw: %d, max. val. fryc: %lld", frac_value, fp_frac_ovflw, fixp2real_max_val_frac);
 
   if( saturation && fp_int_ovflw)
     res_int_value = int_value;
@@ -2558,7 +2558,7 @@ void calculate( int minus, int plus, int mult, int div, int and, int or, int xor
     dbg_print( debug, __func__, __LINE__, "shift operation: val1:%lld shift left or right by %s = %lld", val1_int, val2, val2_int);
   }
   //printf("\nval1= %s, val2 = %s\n", val1, val2);
-  long long result;
+  long long result=0;
   if( operation == MINUS_OP)
     result = val1_int - val2_int;
   else if( operation == PLUS_OP)
