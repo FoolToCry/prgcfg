@@ -21,6 +21,9 @@ example call:
 amov -h
 amov -f submarine.txt
 ```
-...  
+will show an ascii movie like this:
+https://raw.githubusercontent.com/FoolToCry/prgcfg/main/ASCII/submarine.gif
+
+...
 more description to follow  
 ...
